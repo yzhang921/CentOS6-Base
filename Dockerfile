@@ -12,12 +12,13 @@ RUN yum install iputils openssh-server openssh-clients git vim wget java-1.7.0-o
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' \
-    && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
-    && /sbin/service sshd start
+    && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 # install on-my-zsh
 RUN yum install zsh -y \
     && sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+ENV JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
 
 CMD /sbin/service sshd start && zsh
 
