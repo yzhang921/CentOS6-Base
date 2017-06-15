@@ -4,6 +4,12 @@
 - 安装了wget vim jdk1.7 zsh git oh-my-szh等常用环境
 - 配置了JAVA_HOME
 
+## Build
+公司环境虚拟机里面的docker默认配置不能上网没有多研究高级网络配置，--network=host 编译的时候让container与虚拟机公用同一个网络环境
+```bash
+docker build --network=host -t 43914413/centos6-ssh .
+```
+
 
 ## 启动多个容器并让容器互联，以便进行一些日常中常见的分布式系统验证
 参考博客
@@ -18,3 +24,4 @@ docker network create --driver=bridge hadoop
 docker run --rm -d --name c6-master -it --network=hadoop --privileged=true 43914413/centos6-ssh
 docker run --rm -d --name c6-slave1 -it --network=hadoop --privileged=true 43914413/centos6-ssh
 ```
+
