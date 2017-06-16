@@ -1,6 +1,8 @@
 FROM centos:6.9
 WORKDIR /root
 
+COPY resource/* /resource/
+
 # 163 Mirror
 RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup \
     && curl -o /etc/yum.repos.d/CentOS6-Base-163.repo http://mirrors.163.com/.help/CentOS6-Base-163.repo \
@@ -18,10 +20,13 @@ RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' \
 RUN yum install zsh -y \
     && sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
+RUN rm .zshrc \
+    && cp /resource/.zshrc .
+
 ENV JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
 
 CMD /sbin/service sshd start && zsh
 
 
 # docker build --network=host -t 43914413/centos6-ssh .
-# docker run --rm --name c6-ssh -it --privileged=true 43914413/centos6-ssh
+# docker run --rm -d --name c6-master -it --network=hadoop --privileged=true 43914413/centos6-ssh

@@ -16,8 +16,8 @@ docker build --network=host -t 43914413/centos6-ssh .
 - [kiwenlau/hadoop-cluster-docker](https://github.com/kiwenlau/hadoop-cluster-docker)
 - [博客: 基于Docker搭建Hadoop集群之升级版](http://kiwenlau.com/2016/06/12/160612-hadoop-cluster-docker-update/)
 
->之前的版本使用serf/dnsmasq为Hadoop集群提供DNS服务，由于Docker网络功能更新，现在并不需要了。更新的版本中，使用以下命令为Hadoop集群创建单独的网络:
-docker network create --driver=bridge hadoop
+>之前的版本使用serf/dnsmasq为Hadoop集群提供DNS服务，由于Docker网络功能更新，现在并不需要了。更新的版本中，使用以下命令为Hadoop集群创建单独的网络:  
+docker network create --driver=bridge hadoop  
 然后在运行Hadoop容器时，使用”–net=hadoop”选项，这时所有容器将运行在hadoop网络中，它们可以通过容器名称进行通信。
 
 ```bash
