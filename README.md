@@ -21,7 +21,7 @@ docker network create --driver=bridge hadoop
 然后在运行Hadoop容器时，使用”–net=hadoop”选项，这时所有容器将运行在hadoop网络中，它们可以通过容器名称进行通信。
 
 ```bash
-docker run --rm -d --name c6-master -it --network=hadoop --privileged=true 43914413/centos6-ssh
-docker run --rm -d --name c6-slave1 -it --network=hadoop --privileged=true 43914413/centos6-ssh
+docker run --rm -d --name c6-master -v /home/peter/workspace/docker/centos/c6_1/resource:/hostvolumn --hostname=c6-master -it --network=hadoop --privileged=true 43914413/centos6-ssh
+docker run --rm -d --name c6-slave1 --hostname=c6-slave1 -it --network=hadoop --privileged=true 43914413/centos6-ssh
 ```
 
