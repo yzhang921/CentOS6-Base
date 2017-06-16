@@ -1,0 +1,5 @@
+[fin_cdh5.11_cm]
+name=fin_cdh5.11_cm
+baseurl=http://10.15.110.8/cdh5/5.11.1/cm/centos-6/cm/5
+enabled=1
+gpgcheck=0

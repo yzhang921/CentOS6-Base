@@ -1,9 +1,13 @@
 FROM centos:6.9
 WORKDIR /root
 
+COPY resource/* /resource/
+
 # 163 Mirror
 RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup \
     && curl -o /etc/yum.repos.d/CentOS6-Base-163.repo http://mirrors.163.com/.help/CentOS6-Base-163.repo \
+    && cp /resource/cloudera-cdh5.11.1-fin.repo /etc/yum.repos.d/ \
+    && ls -l /etc/yum.repos.d \
     && yum clean all \
     && yum makecache
 
