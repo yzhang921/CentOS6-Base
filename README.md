@@ -1,27 +1,24 @@
-# 试验阶段的CenotOS Docker基础配置
-该Docker镜像
-- 配置了网易yum镜像库
-- 安装了wget vim jdk1.7 zsh git oh-my-szh等常用环境
-- 配置了JAVA_HOME
+# Ctrip内部环境用命令行搭建CDH运行环境试验
+- 该分支一master分支为基础，运行之前需要先构建好master分支的镜像，master分支默认构建镜像名称为centos6-base，可以自行修改
+- 
+- 配置了Ctrip内部CDH5.7.1，CentOS Repository
+- 安装CDH
+
 
 ## Build
-公司环境虚拟机里面的docker默认配置不能上网没有多研究高级网络配置，--network=host 编译的时候让container与虚拟机公用同一个网络环境
 ```bash
-docker build --network=host -t 43914413/centos6-ssh .
+git clone git@git.dev.sh.ctripcorp.com:zyong/CentOS6-Base.git CentOS6-Base-Ctrip
+git checkout ctrip-cdh-test
+docker build --network=host -t centos6-cdh-cmd .
 ```
+## 运行前提
+- 容器互联网络已经建立，建立命令如下
+    - docker network create --driver=bridge hadoop
 
-
-## 启动多个容器并让容器互联，以便进行一些日常中常见的分布式系统验证
-参考博客
-- [kiwenlau/hadoop-cluster-docker](https://github.com/kiwenlau/hadoop-cluster-docker)
-- [博客: 基于Docker搭建Hadoop集群之升级版](http://kiwenlau.com/2016/06/12/160612-hadoop-cluster-docker-update/)
-
->之前的版本使用serf/dnsmasq为Hadoop集群提供DNS服务，由于Docker网络功能更新，现在并不需要了。更新的版本中，使用以下命令为Hadoop集群创建单独的网络:
-docker network create --driver=bridge hadoop
-然后在运行Hadoop容器时，使用”–net=hadoop”选项，这时所有容器将运行在hadoop网络中，它们可以通过容器名称进行通信。
+# 运行实例
 
 ```bash
-docker run --rm -d --name c6-master -v /home/peter/workspace/docker/centos/c6_1/resource:/hostvolumn --hostname=c6-master -it --network=hadoop --privileged=true 43914413/centos6-ssh
-docker run --rm -d --name c6-slave1 --hostname=c6-slave1 -it --network=hadoop --privileged=true 43914413/centos6-ssh
+docker run -d --name=cmd-master --hostname=cmd-master -it --network=hadoop --privileged=true centos6-cdh-cmd
+docker run -d --name=cmd-slave1 --hostname=cmd-slave1 -it --network=hadoop --privileged=true centos6-cdh-cmd
 ```
 

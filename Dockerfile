@@ -15,4 +15,3 @@ CMD /sbin/service sshd start && zsh
 
 
 # docker build --network=host -t centos6-cdh-cmd .
-# docker run --rm --name c6-ssh -it --privileged=true 43914413/centos6-ssh
