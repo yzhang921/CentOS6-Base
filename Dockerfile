@@ -28,5 +28,5 @@ ENV JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
 CMD /sbin/service sshd start && zsh
 
 
-# docker build --network=host -t 43914413/centos6-ssh .
-# docker run --rm -d --name c6-master -it --network=hadoop --privileged=true 43914413/centos6-ssh
+# docker build --network=host -t centos6-base .
+# docker run --rm -d --name c6-master -it --network=hadoop --privileged=true centos6-base
