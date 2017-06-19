@@ -11,7 +11,15 @@ RUN cp /resource/repo/cloudera-cdh5.7.1-ctrip.repo /etc/yum.repos.d/ \
  && yum install zookeeper hadoop-yarn-resourcemanager hadoop-hdfs-namenode hadoop-yarn-nodemanager hadoop-hdfs-datanode hadoop-mapreduce hadoop-client -y \
  && yum clean all
 
-COPY resource/install/* /resource/install/
+COPY resource/cdh-conf/* cdh-conf/
+
+RUN cp -r /etc/hadoop/conf.empty /etc/hadoop/conf.my_cluster \
+ && alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.my_cluster 50 \
+ && alternatives --set hadoop-conf /etc/hadoop/conf.my_cluster \
+ && alternatives --display hadoop-conf \
+ && rm slaves core-site.xml hdfs-site.xml \
+ && cp cdh-conf/* /etc/hadoop/conf.my_cluster \
+
 
 CMD /sbin/service sshd start && zsh
 
