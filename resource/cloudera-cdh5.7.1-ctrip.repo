@@ -1,0 +1,5 @@
+[cloudera-cdh5.7.1]
+name=DI Team Custom Repo cloudera-cdh5.7.1
+baseurl=http://mirrors.sh.ctriptravel.com/cdh4/centos/$releasever/x86_64/cdh5.7.1
+humanname=DI Team Custom Repo cloudera-cdh5.7.1
+gpgcheck=0
