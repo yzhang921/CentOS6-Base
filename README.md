@@ -3,6 +3,7 @@
 - 配置了网易yum镜像库
 - 安装了wget vim jdk1.7 zsh git oh-my-szh等常用环境
 - 配置了JAVA_HOME
+- ssh免密互联，关闭了StrictHostKeyChecking，避免第一次连接时的确认提示
 
 ## Build
 公司环境虚拟机里面的docker默认配置不能上网，可以使用host网络模式 --network=host 编译的时候让container与虚拟机公用同一个网络环境  

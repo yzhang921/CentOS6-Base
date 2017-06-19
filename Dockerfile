@@ -10,7 +10,7 @@ RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backu
 # Base Util
 RUN yum install iputils openssh-server openssh-clients git vim wget java-1.7.0-openjdk java-1.7.0-openjdk-devel -y
 
-COPY resource/sys_conf/*  /resource/sys_conf/
+COPY resource/*  /resource/
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' \
@@ -19,6 +19,9 @@ RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' \
 # install on-my-zsh
 RUN yum install zsh -y \
     && sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+RUN tar xzf /resource/install/pssh-2.3.1.tar.gz \
+    && cd pssh-2.3.1 && python setup.py install
 
 RUN rm .zshrc /etc/ssh/ssh_config \
     && cp /resource/sys_conf/.zshrc . \
