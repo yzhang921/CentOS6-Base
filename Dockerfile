@@ -10,7 +10,8 @@ RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backu
 # Base Util
 RUN yum install iputils openssh-server openssh-clients git vim wget java-1.7.0-openjdk java-1.7.0-openjdk-devel -y
 
-COPY resource/*  /resource/
+COPY resource/sys_conf/*  /resource/sys_conf/
+COPY resource/install/*     /resource/install/
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' \
