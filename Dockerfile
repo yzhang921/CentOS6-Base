@@ -18,7 +18,7 @@ RUN cp -r /etc/hadoop/conf.empty /etc/hadoop/conf.my_cluster \
  && alternatives --set hadoop-conf /etc/hadoop/conf.my_cluster \
  && alternatives --display hadoop-conf \
  && rm slaves core-site.xml hdfs-site.xml \
- && cp cdh-conf/* /etc/hadoop/conf.my_cluster \
+ && cp /root/cdh-conf/* /etc/hadoop/conf.my_cluster/ 
 
 
 CMD /sbin/service sshd start && zsh
