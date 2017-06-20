@@ -1,0 +1,8 @@
+[cloudera-cdh5-local]
+# Packages for Cloudera's Distribution for Hadoop, Version 5, on RedHat	or CentOS 6 x86_64
+name=Cloudera's Distribution for Hadoop, Version 5
+# You can change to your local yum repo url
+baseurl=https://archive.cloudera.com/cdh5/redhat/6/x86_64/cdh/5/
+humanname=DI Team Custom Repo cloudera-cdh5.7.1
+# close check
+gpgcheck = 0
