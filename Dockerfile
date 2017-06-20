@@ -1,4 +1,5 @@
-FROM centos6-base
+#FROM centos6-base
+FROM 43914423/centos6-base
 WORKDIR /root
 
 COPY resource/repo/* /resource/repo/
