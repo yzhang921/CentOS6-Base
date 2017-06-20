@@ -17,7 +17,8 @@ RUN cp -r /etc/hadoop/conf.empty /etc/hadoop/conf.my_cluster \
  && alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.my_cluster 50 \
  && alternatives --set hadoop-conf /etc/hadoop/conf.my_cluster \
  && alternatives --display hadoop-conf \
- && cp -fR /root/cdh-conf/* /etc/hadoop/conf.my_cluster
+ && cp -fR /root/cdh-conf/* /etc/hadoop/conf.my_cluster \
+ && chmod 755 /root/cdh-conf/*
 
 # To configure local storage directories for use by HDFS
 RUN mkdir -p /data/1/dfs/nn /nfsmount/dfs/nn \
