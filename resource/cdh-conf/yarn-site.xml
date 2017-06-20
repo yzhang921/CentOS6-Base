@@ -4,7 +4,7 @@
 <configuration>
     <property>
         <name>yarn.resourcemanager.hostname</name>
-        <value>resourcemanager.peter.com</value>
+        <value>cmd-master</value>
     </property>
     <property>
         <description>Classpath for typical applications.</description>

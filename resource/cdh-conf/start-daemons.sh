@@ -10,7 +10,7 @@ pssh -h slaves -i "service hadoop-hdfs-datanode start"
 # Add root to superusergroup of hdfs
 usermod -a -G hadoop root
 hdfs dfs -mkdir /root
-hdfs dfs put /root/cdh-conf /root
+hdfs dfs -put /root/cdh-conf /root
 
 
 service hadoop-yarn-resourcemanager start
