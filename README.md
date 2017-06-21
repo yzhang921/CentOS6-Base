@@ -3,19 +3,18 @@
 - 配置了Ctrip内部CDH5.7.1，CentOS Repository
 - 安装CDH
 
-
-## Build
+# Build
 ```bash
-git clone git@git.dev.sh.ctripcorp.com:zyong/CentOS6-Base.git CentOS6-Base-Ctrip
-git checkout ctrip-cdh-test
+git clone git@github.com:yzhang921/CentOS6-Base.git CentOS6-Base
+git checkout cmd-install-cdh
 docker build --network=host -t centos6-cdh-cmd .
 ```
-## 运行前提
+# 运行前提
 - 容器互联网络已经建立，建立命令如下
     - docker network create --driver=bridge hadoop
 
 # 运行实例
-
+在宿主机上面运行启动容器集群脚本
 ```bash
 chmod 755 start-cluster.sh
 # Change parameter of image name before start cluster containers
@@ -24,3 +23,22 @@ chmod 755 start-cluster.sh
 ./start-cluster.sh centos6-cdh-cmd
 ```
 
+# 进入集群Master启动CDH
+```bash
+docker attach cmd-master
+cd cdh-conf
+# 启动 NameNode，DataNode， ResourceManager，NodeManager
+./start-daemons.sh
+```
+启动之后在可以宿主机上面查看集群状态
+http://localhost:50070 <HDFS管理界面>
+http://localhost:8088 <YARN监控界面>
+
+# 运行测试任务
+```bash
+# run pi
+hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar pi 10 100
+# run wordcount
+hdfs dfs -rm -r -f /tmp/output
+hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar wordcount /root/cdh-conf /tmp/output
+```
