@@ -1,5 +1,11 @@
 #!/bin/bash
 
+image=$1
+
+if [ "$image" = "" ]; then
+   image="centos6-cdh-cmd"
+fi
+
 # start hadoop master container
 MASTER_NAME="cmd-master"
 sudo docker rm -f ${MASTER_NAME} &> /dev/null
@@ -11,7 +17,7 @@ sudo docker run --name=${MASTER_NAME} \
     -p 50070:50070 \
     -p 8088:8088 \
     --privileged=true \
-    centos6-cdh-cmd
+    ${image}
 
 
 # start hadoop slave container
@@ -28,7 +34,7 @@ do
         --hostname=${SLAVE_NAME} \
         --network=hadoop \
         --privileged=true \
-        centos6-cdh-cmd
+        ${image}
     i=$(( $i + 1 ))
 done
 

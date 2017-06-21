@@ -1,4 +1,4 @@
-# Ctrip内部环境用命令行搭建CDH运行环境试验
+# 用命令行搭建CDH运行环境试验
 - 该分支一master分支为基础，**运行之前需要先构建好master分支的镜像**，master分支默认构建镜像名称为centos6-base，可以自行修改
 - 配置了Ctrip内部CDH5.7.1，CentOS Repository
 - 安装CDH
@@ -17,8 +17,10 @@ docker build --network=host -t centos6-cdh-cmd .
 # 运行实例
 
 ```bash
-docker run -d --name=cmd-master --hostname=cmd-master -it --network=hadoop --privileged=true centos6-cdh-cmd
-docker run -d --name=cmd-slave1 --hostname=cmd-slave1 -it --network=hadoop --privileged=true centos6-cdh-cmd
-docker run -d --name=cmd-slave2 --hostname=cmd-slave2 -it --network=hadoop --privileged=true centos6-cdh-cmd
+chmod 755 start-cluster.sh
+# Change parameter of image name before start cluster containers
+./start-cluster.sh [your-image]
+# For example， I build with name centos6-cdh-cmd then command like below：
+./start-cluster.sh centos6-cdh-cmd
 ```
 
