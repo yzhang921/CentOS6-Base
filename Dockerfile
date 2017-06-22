@@ -47,7 +47,8 @@ RUN mkdir -p /var/lib/zookeeper \
 # Configure Hbase
 COPY resource/conf-hbase/* conf-hbase/
 RUN cp -fR /root/conf-hbase/hbase-site.xml /etc/hbase/conf \
- && cp -fR /root/conf-hbase/regionservers /etc/hbase/conf
+ && cp -fR /root/conf-hbase/regionservers /etc/hbase/conf \
+ && chmod 755 /root/conf-hbase/*
 
 
 CMD /sbin/service sshd start && zsh
