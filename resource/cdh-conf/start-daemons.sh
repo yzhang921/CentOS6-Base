@@ -1,4 +1,6 @@
 #!/bin/bash
+curDir=$(cd `dirname $0`; pwd)
+cd $curDir
 
 # Run this shell in master node
 # This shell is used to start namenode, datanode

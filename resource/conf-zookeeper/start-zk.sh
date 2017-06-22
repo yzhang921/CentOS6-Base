@@ -1,5 +1,8 @@
 #!/bin/bash
 
+curDir=$(cd `dirname $0`; pwd)
+cd $curDir
+
 # this start zk script is run at each zk container, ususally call my master start-zk-daemons at master
 curDir=$(cd `dirname $0`; pwd)
 cd $curDir

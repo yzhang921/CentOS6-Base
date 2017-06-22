@@ -1,5 +1,8 @@
 #!/bin/bash
 
+curDir=$(cd `dirname $0`; pwd)
+cd $curDir
+
 image=$1
 
 if [ "$image" = "" ]; then
