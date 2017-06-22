@@ -12,7 +12,7 @@ RUN cp /resource/repo/cloudera-cdh5.7.1-ctrip.repo /etc/yum.repos.d/ \
  && yum clean all
 
 # Install Hbase && zookeeper
-RUN yum install hbase-master hbase-regionserver hive zookeeper zookeeper-server zookeeper-clien -y
+RUN yum install hbase-master hbase-regionserver hive zookeeper zookeeper-server -y
 
 COPY resource/cdh-conf/* cdh-conf/
 
