@@ -19,6 +19,7 @@ sudo docker run --name=${MASTER_NAME} \
     --network=hadoop \
     -p 50070:50070 \
     -p 8088:8088 \
+    -p 60010:60010 \
     --privileged=true \
     ${image}
 

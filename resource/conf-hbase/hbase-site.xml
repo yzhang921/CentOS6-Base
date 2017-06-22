@@ -10,4 +10,8 @@
         <name>hbase.rootdir</name>
         <value>hdfs://cmd-master:8020/hbase</value>
     </property>
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>zk-node1:2181,zk-node2:2181,zk-node3:2181</value>
+    </property>
 </configuration>

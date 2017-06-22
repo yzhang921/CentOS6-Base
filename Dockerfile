@@ -38,13 +38,18 @@ RUN mkdir -p /data/1/yarn/local /data/2/yarn/local \
 
 # configure zookeeper
 COPY resource/conf-zookeeper/* conf-zookeeper/
-
 RUN mkdir -p /var/lib/zookeeper \
  && cp -fR /root/conf-zookeeper/zoo.cfg /etc/zookeeper/conf \
  && chown -R zookeeper /var/lib/zookeeper/ \
  && chmod 755 /root/conf-zookeeper/*
 
-CMD /sbin/service sshd start && zsh
 
+# Configure Hbase
+COPY resource/conf-hbase/* conf-hbase/
+RUN cp -fR /root/conf-hbase/hbase-site.xml /etc/hbase/conf \
+ && cp -fR /root/conf-hbase/regionservers /etc/hbase/conf
+
+
+CMD /sbin/service sshd start && zsh
 
 # docker build --network=host -t centos6-cdh-cmd .
