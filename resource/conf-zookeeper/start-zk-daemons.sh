@@ -10,6 +10,8 @@ cat << EOF
 EOF
 }
 
+init=n
+
 echo "[INFO] Parse all the arguments...."
 while [ $# -gt 0 ]; do    # Until you run out of parameters . . .
   key=${1%%=*}  # 从后往前删掉最大匹配的字符得到key
@@ -31,10 +33,6 @@ while [ $# -gt 0 ]; do    # Until you run out of parameters . . .
   shift       # Check next set of parameters.
 done
 
-if [ "$init" != "y" ]; then
-  init=n
-fi
-
 echo "init = ${init}"
 
-#pssh -v -h zk-nodes -i "conf-zookeeper/start-zk.sh ${init}"
+pssh -v -h zk-nodes -i "conf-zookeeper/start-zk.sh ${init}"
