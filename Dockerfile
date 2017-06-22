@@ -37,7 +37,7 @@ RUN mkdir -p /data/1/yarn/local /data/2/yarn/local \
 
 
 # configure zookeeper
-COPY resource/con-zookeeper/* conf-zookeeper/
+COPY resource/conf-zookeeper/* conf-zookeeper/
 
 RUN mkdir -p /var/lib/zookeeper \
  && cp -fR /root/conf-zookeeper/zoo.cfg /etc/zookeeper/conf \
