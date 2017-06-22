@@ -12,6 +12,6 @@
     </property>
     <property>
         <name>dfs.datanode.data.dir</name>
-        <value>file:///data/1/dfs/dn,file:///data/2/dfs/dn,file:///data/3/dfs/dn,file:///data/4/dfs/dn</value>
+        <value>file:///data/1/dfs/dn,file:///data/2/dfs/dn</value>
     </property>
 </configuration>

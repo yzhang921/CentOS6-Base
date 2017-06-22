@@ -38,5 +38,23 @@ do
     i=$(( $i + 1 ))
 done
 
+# start zookeeper cluster
+N=3
+i=1
+while [ $i -le $N ]
+do
+    SLAVE_NAME=zk-node$i
+    sudo docker rm -f ${SLAVE_NAME} &> /dev/null
+    echo "start zk-node$i container..."
+    sudo docker run --name=${SLAVE_NAME} \
+        -itd \
+        --hostname=${SLAVE_NAME} \
+        --network=hadoop \
+        --privileged=true \
+        ${image}
+    i=$(( $i + 1 ))
+done
+
+
 # get into hadoop master container
 # sudo docker attach ${MASTER_NAME}
