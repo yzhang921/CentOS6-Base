@@ -11,7 +11,7 @@ rm -rf /var/lib/zookeeper/*
 echo ${myid} > /var/lib/zookeeper/myid
 cat /var/lib/zookeeper/myid
 
-if [ "$init" = "init" ]; then
+if [ "$init" = "y" ]; then
   echo "[INFO] Start intitail ZK cluster"
   service zookeeper-server init --myid=${myid}
 fi
