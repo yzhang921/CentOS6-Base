@@ -12,6 +12,10 @@ RUN cp /resource/repo/cloudera-cdh5-local.repo /etc/yum.repos.d/ \
  && yum install zookeeper hadoop-yarn-resourcemanager hadoop-hdfs-namenode hadoop-yarn-nodemanager hadoop-hdfs-datanode hadoop-mapreduce hadoop-client -y \
  && yum clean all
 
+# Install Hbase && zookeeper
+RUN yum install hbase-master hbase-regionserver hive zookeeper zookeeper-server -y
+RUN yum install -y hive-metastore hive-server2 mysql-server mysql-connector-java
+
 COPY resource/cdh-conf/* cdh-conf/
 
 RUN cp -r /etc/hadoop/conf.empty /etc/hadoop/conf.my_cluster \
@@ -23,17 +27,40 @@ RUN cp -r /etc/hadoop/conf.empty /etc/hadoop/conf.my_cluster \
 
 # To configure local storage directories for use by HDFS
 RUN mkdir -p /data/1/dfs/nn /nfsmount/dfs/nn \
- && mkdir -p /data/1/dfs/dn /data/2/dfs/dn /data/3/dfs/dn /data/4/dfs/dn \
- && chown -R hdfs:hdfs /data/1/dfs/nn /nfsmount/dfs/nn /data/1/dfs/dn /data/2/dfs/dn /data/3/dfs/dn /data/4/dfs/dn \
+ && mkdir -p /data/1/dfs/dn /data/2/dfs/dn \
+ && chown -R hdfs:hdfs /data/1/dfs/nn /nfsmount/dfs/nn /data/1/dfs/dn /data/2/dfs/dn \
  && chmod 700 /data/1/dfs/nn /nfsmount/dfs/nn
 
 # To configure local storage directories for use by YARN
-RUN mkdir -p /data/1/yarn/local /data/2/yarn/local /data/3/yarn/local /data/4/yarn/local \
- && mkdir -p /data/1/yarn/logs /data/2/yarn/logs /data/3/yarn/logs /data/4/yarn/logs \
- && chown -R yarn:yarn /data/1/yarn/local /data/2/yarn/local /data/3/yarn/local /data/4/yarn/local \
- && chown -R yarn:yarn /data/1/yarn/logs /data/2/yarn/logs /data/3/yarn/logs /data/4/yarn/logs
+RUN mkdir -p /data/1/yarn/local /data/2/yarn/local \
+ && mkdir -p /data/1/yarn/logs \
+ && chown -R yarn:yarn /data/1/yarn/local /data/2/yarn/local \
+ && chown -R yarn:yarn /data/1/yarn/logs
+
+
+# configure zookeeper
+COPY resource/conf-zookeeper/* conf-zookeeper/
+RUN mkdir -p /var/lib/zookeeper \
+ && cp -fR /root/conf-zookeeper/zoo.cfg /etc/zookeeper/conf \
+ && chown -R zookeeper /var/lib/zookeeper/ \
+ && chmod 755 /root/conf-zookeeper/*
+
+
+# Configure Hbase
+COPY resource/conf-hbase/* conf-hbase/
+RUN cp -fR /root/conf-hbase/hbase-site.xml /etc/hbase/conf \
+ && cp -fR /root/conf-hbase/regionservers /etc/hbase/conf \
+ && chmod 755 /root/conf-hbase/*
+
+
+# Configure Hive
+COPY resource/conf-hive/* conf-hive/
+RUN ln -s /usr/share/java/mysql-connector-java.jar /usr/lib/hive/lib/mysql-connector-java.jar \
+ && cp -fR /root/conf-hive/hive-site.xml /etc/hive/conf \
+ && chmod 755 /root/conf-hive/start-hive-daemons.sh
+
+RUN yum clean all
 
 CMD /sbin/service sshd start && zsh
-
 
 # docker build --network=host -t centos6-cdh-cmd .

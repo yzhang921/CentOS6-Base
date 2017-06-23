@@ -23,11 +23,11 @@
     </property>
     <property>
         <name>yarn.nodemanager.local-dirs</name>
-        <value>file:///data/1/yarn/local,file:///data/2/yarn/local,file:///data/3/yarn/local</value>
+        <value>file:///data/1/yarn/local,file:///data/2/yarn/local</value>
     </property>
     <property>
         <name>yarn.nodemanager.log-dirs</name>
-        <value>file:///data/1/yarn/logs,file:///data/2/yarn/logs,file:///data/3/yarn/logs</value>
+        <value>file:///data/1/yarn/logs</value>
     </property>
     <property>
         <name>yarn.log.aggregation-enable</name>

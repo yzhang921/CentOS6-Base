@@ -42,3 +42,15 @@ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar pi 10 100
 hdfs dfs -rm -r -f /tmp/output
 hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar wordcount /root/cdh-conf /tmp/output
 ```
+
+# 启动zookeeper集群(在cmd-master容器上面运行启动脚本)
+```bash
+docker attach cmd-master
+# 第一次启动带 --init参数初始化zk集群
+conf-zookeeper/start-zk-daemons.sh --init
+```
+
+# 启动HBase集群(在cmd-master容器上面运行启动脚本, 启动之前需要先启动ZK)
+```bash
+conf-hbase/start-hbase-daemons.sh
+```

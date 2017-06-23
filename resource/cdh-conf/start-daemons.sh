@@ -1,4 +1,6 @@
 #!/bin/bash
+curDir=$(cd `dirname $0`; pwd)
+cd $curDir
 
 # Run this shell in master node
 # This shell is used to start namenode, datanode
@@ -9,6 +11,7 @@ pssh -h slaves -i "service hadoop-hdfs-datanode start"
 
 # Add root to superusergroup of hdfs
 usermod -a -G hadoop root
+
 hdfs dfs -mkdir /root
 hdfs dfs -put /root/cdh-conf /root
 
