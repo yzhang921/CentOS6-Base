@@ -41,17 +41,18 @@ service mysqld start
 
 if [ "$init" = "y" ]; then
   echo "[INFO] Set root password of mysql"
-  mysqladmin -u root flush-privileges password ${mypass}
+  ssh root@hive-server2 "service mysqld start; mysqladmin -u root flush-privileges password ${mypass}"
   echo "[INFO] Initial metastore database..."
-  cd /usr/lib/hive/scripts/metastore/upgrade/mysql/
-  mysql -h localhost -u root -p${mypass} < /root/conf-hive/metastore.sql
+  ssh root@hive-server2 "cd /usr/lib/hive/scripts/metastore/upgrade/mysql/ ; \
+    mysql -hlocalhost -uroot -p${mypass} < /root/conf-hive/metastore.sql
+  "
 
   # Add hive to superusergroup of hdfs
-  usermod -a -G hadoop hive
-
-  hdfs dfs -mkdir -p /user/hive/warehouse
-  hdfs dfs -chown hive /user/hive/warehouse
+  usermod -a -G hadoop hive ;
+  hdfs dfs -mkdir -p /user/hive/warehouse ;
+  hdfs dfs -chown hive /user/hive/warehouse ;
   hdfs dfs -chmod 777 /user/hive/warehouse
+
 fi
 
-ssh hive "service hive-metastore start; service hive-server2 start"
+ssh root@hive-server2 "service hive-metastore start; service hive-server2 start"
