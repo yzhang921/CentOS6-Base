@@ -60,7 +60,7 @@ do
 done
 
 # start hive-server2, metastore on this container
-MASTER_NAME="hive"
+MASTER_NAME="hive-server2"
 sudo docker rm -f ${MASTER_NAME} &> /dev/null
 echo "start ${MASTER_NAME} container..."
 sudo docker run --name=${MASTER_NAME} \
@@ -68,6 +68,7 @@ sudo docker run --name=${MASTER_NAME} \
     --hostname=${MASTER_NAME} \
     --network=hadoop \
     -p 3306:3306 \
+    -p 10002:10002 \
     --privileged=true \
     ${image}
 

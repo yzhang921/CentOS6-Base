@@ -45,6 +45,10 @@ if [ "$init" = "y" ]; then
   echo "[INFO] Initial metastore database..."
   cd /usr/lib/hive/scripts/metastore/upgrade/mysql/
   mysql -h localhost -u root -p${mypass} < /root/conf-hive/metastore.sql
+
+  hdfs dfs -mkdir -p /user/hive/warehouse
+  hdfs dfs -chown hive /user/hive/warehouse
+  hdfs dfs -chmod 777 /user/hive/warehouse
 fi
 
 ssh hive "service hive-metastore start; service hive-server2 start"
