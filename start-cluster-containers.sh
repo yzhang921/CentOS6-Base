@@ -67,7 +67,7 @@ sudo docker run --name=${MASTER_NAME} \
     -itd \
     --hostname=${MASTER_NAME} \
     --network=hadoop \
-    -p 8026:8026 \
+    -p 3306:3306 \
     --privileged=true \
     ${image}
 
