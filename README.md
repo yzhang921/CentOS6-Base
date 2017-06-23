@@ -28,7 +28,7 @@ chmod 755 start-cluster.sh
 docker attach cmd-master
 cd cdh-conf
 # 启动 NameNode，DataNode， ResourceManager，NodeManager
-./start-daemons.sh
+./start-cluster-containers.sh
 ```
 启动之后在可以宿主机上面查看集群状态
 http://localhost:50070 <HDFS管理界面>
