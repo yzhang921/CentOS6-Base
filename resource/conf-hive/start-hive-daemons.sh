@@ -46,6 +46,9 @@ if [ "$init" = "y" ]; then
   cd /usr/lib/hive/scripts/metastore/upgrade/mysql/
   mysql -h localhost -u root -p${mypass} < /root/conf-hive/metastore.sql
 
+  # Add hive to superusergroup of hdfs
+  usermod -a -G hadoop hive
+
   hdfs dfs -mkdir -p /user/hive/warehouse
   hdfs dfs -chown hive /user/hive/warehouse
   hdfs dfs -chmod 777 /user/hive/warehouse

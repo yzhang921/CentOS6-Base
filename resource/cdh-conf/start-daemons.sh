@@ -9,9 +9,8 @@ su - hdfs -c "hdfs namenode -format"
 service hadoop-hdfs-namenode start
 pssh -h slaves -i "service hadoop-hdfs-datanode start"
 
-# Add root,hive to superusergroup of hdfs
+# Add root to superusergroup of hdfs
 usermod -a -G hadoop root
-usermod -a -G hadoop hive
 
 hdfs dfs -mkdir /root
 hdfs dfs -put /root/cdh-conf /root
