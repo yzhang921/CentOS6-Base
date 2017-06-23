@@ -11,7 +11,7 @@ RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backu
 RUN yum install iputils openssh-server openssh-clients git vim wget java-1.7.0-openjdk java-1.7.0-openjdk-devel -y
 
 COPY resource/sys_conf/*  /resource/sys_conf/
-COPY resource/install/*     /resource/install/
+COPY resource/install/*   /resource/install/
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' \
@@ -26,7 +26,8 @@ RUN tar xzf /resource/install/pssh-2.3.1.tar.gz \
 
 RUN rm .zshrc /etc/ssh/ssh_config \
     && cp /resource/sys_conf/.zshrc . \
-    && cp /resource/sys_conf/ssh_config /etc/ssh
+    && cp /resource/sys_conf/ssh_config /etc/ssh \
+    && cp /resource/sys_conf/.vimrc .
 
 ENV JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
 
