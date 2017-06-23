@@ -13,6 +13,7 @@ RUN cp /resource/repo/cloudera-cdh5.7.1-ctrip.repo /etc/yum.repos.d/ \
 
 # Install Hbase && zookeeper
 RUN yum install hbase-master hbase-regionserver hive zookeeper zookeeper-server -y
+RUN yum install -y hive-metastore hive-server2 mysql-server mysql-connector-java
 
 COPY resource/cdh-conf/* cdh-conf/
 
@@ -50,6 +51,14 @@ RUN cp -fR /root/conf-hbase/hbase-site.xml /etc/hbase/conf \
  && cp -fR /root/conf-hbase/regionservers /etc/hbase/conf \
  && chmod 755 /root/conf-hbase/*
 
+
+# Configure Hive
+COPY resource/conf-hive/* conf-hive/
+RUN ln -s /usr/share/java/mysql-connector-java.jar /usr/lib/hive/lib/mysql-connector-java.jar \
+ && cp -fR /root/conf-hive/hive-site.xml /etc/hive/conf \
+ && chmod 755 /root/conf-hive/start-hive-daemons.sh
+
+RUN yum clean all
 
 CMD /sbin/service sshd start && zsh
 

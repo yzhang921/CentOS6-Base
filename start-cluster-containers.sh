@@ -59,6 +59,17 @@ do
     i=$(( $i + 1 ))
 done
 
+# start hive-server2, metastore on this container
+MASTER_NAME="hive"
+sudo docker rm -f ${MASTER_NAME} &> /dev/null
+echo "start ${MASTER_NAME} container..."
+sudo docker run --name=${MASTER_NAME} \
+    -itd \
+    --hostname=${MASTER_NAME} \
+    --network=hadoop \
+    -p 8026:8026 \
+    --privileged=true \
+    ${image}
 
 # get into hadoop master container
 # sudo docker attach ${MASTER_NAME}
