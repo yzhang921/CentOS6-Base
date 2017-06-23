@@ -37,11 +37,11 @@ echo "init = ${init}"
 
 mypass=111111
 
-service mysqld start
-
 if [ "$init" = "y" ]; then
   echo "[INFO] Set root password of mysql"
   ssh root@hive-server2 "service mysqld start; mysqladmin -u root flush-privileges password ${mypass}"
+
+  # Remote execute failure, abandon this process
   echo "[INFO] Initial metastore database..."
   ssh root@hive-server2 "cd /usr/lib/hive/scripts/metastore/upgrade/mysql/ ; \
     mysql -hlocalhost -uroot -p${mypass} < /root/conf-hive/metastore.sql
