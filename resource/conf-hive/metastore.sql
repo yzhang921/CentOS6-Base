@@ -8,3 +8,4 @@ CREATE USER 'hive'@'localhost' IDENTIFIED BY 'hive';
 GRANT ALL PRIVILEGES ON metastore.* TO 'hive'@'localhost';
 
 FLUSH PRIVILEGES;
+QUIT;

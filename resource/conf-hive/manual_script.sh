@@ -10,6 +10,7 @@ hdfs dfs -chmod 777 /user/hive/warehouse
 
 ssh hive-server2
 # Switch path to use ddl in this folder
+service mysqld start
 cd /usr/lib/hive/scripts/metastore/upgrade/mysql/
 mysql -uroot -p
 
@@ -18,8 +19,9 @@ mysql -uroot -p
 service hive-metastore start
 service hive-server2 start
 
+netstat -anp
 # connect to hive-server2 @ any node where hive-client installed
 /usr/lib/hive/bin/beeline
-beeline> !connect jdbc:hive2://hive-server2:10000 username password
+beeline> !connect jdbc:hive2://hive-server2:10000
 org.apache.hive.jdbc.HiveDriver
 0: jdbc:hive2://localhost:10000> SHOW TABLES;
