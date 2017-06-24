@@ -27,7 +27,7 @@ function init_cdh() {
 
   echo "[INFO] mkdir /root and put cdh-conf to hdfs"
   hdfs dfs -mkdir /root
-  hdfs dfs -put /root/cdh-conf /root
+  hdfs dfs -put /root/conf-cdh /root
 }
 
 function stop_cdh() {

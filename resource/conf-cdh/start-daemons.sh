@@ -44,7 +44,7 @@ if [ "$init" = "y" ]; then
   # Add root to superusergroup of hdfs
   usermod -a -G hadoop root
   hdfs dfs -mkdir /root
-  hdfs dfs -put /root/cdh-conf /root
+  hdfs dfs -put /root/conf-cdh /root
 fi
 
 
