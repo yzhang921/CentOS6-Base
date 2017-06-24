@@ -2,6 +2,7 @@
 curDir=$(cd `dirname $0`; pwd)
 cd $curDir
 
+source ../parser-params.sh
 
 function start_hbase() {
     echo "[INFO] Start HBase ..."

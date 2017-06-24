@@ -23,7 +23,8 @@ RUN cp -r /etc/hadoop/conf.empty /etc/hadoop/conf.my_cluster \
  && alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.my_cluster 50 \
  && alternatives --set hadoop-conf /etc/hadoop/conf.my_cluster \
  && alternatives --display hadoop-conf \
- && cp -fR /root/conf-cdh/* /etc/hadoop/conf.my_cluster \
+ && cp -fR /root/conf-cdh/*.xml /etc/hadoop/conf.my_cluster \
+ && cp -fR /root/conf-cdh/slaves /etc/hadoop/conf.my_cluster \
  && chmod 755 /root/conf-cdh/* \
  && chmod 755 ./parser-params.sh
 
