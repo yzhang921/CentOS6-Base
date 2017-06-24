@@ -1,16 +1,18 @@
 #!/bin/bash
 
-curDir=$(cd `dirname $0`; pwd)
-cd $curDir
-
 function display_usage() {
 cat << EOF
-  usage: start-zk-daemons.sh [--init]
-    init:   add this parameter to initial zk cluster, blank to start existing cluster
+  usage: $0 --init/--start/--stop/--restart
+    init      initialize new cluster environment
+    start     start an existing cluster
+    stop      stop cluster
+    restart   restart cluster
 EOF
 }
 
-init=n
+if [ "$#" = 0 ]; then
+    display_usage
+fi
 
 echo "[INFO] Parse all the arguments...."
 while [ $# -gt 0 ]; do    # Until you run out of parameters . . .
@@ -25,6 +27,18 @@ while [ $# -gt 0 ]; do    # Until you run out of parameters . . .
         init=y
         echo "set [init] to y"
         ;;
+    --start)
+        start=y
+        echo "set [start] to y"
+        ;;
+    --stop)
+        stop=y
+        echo "set [stop] to y"
+        ;;
+    --restart)
+        init=y
+        echo "set [restart] to y"
+        ;;
     * )
         echo "[ERROR]: $key is an unknown parameter."
         display_usage
@@ -33,6 +47,8 @@ while [ $# -gt 0 ]; do    # Until you run out of parameters . . .
   shift       # Check next set of parameters.
 done
 
-echo "init = ${init}"
 
-pssh -v -h zk-nodes -i "conf-zookeeper/start-zk.sh ${init}"
+echo "init = ${init}"
+echo "stop = ${stop}"
+echo "start = ${start}"
+echo "restart = ${restart}"

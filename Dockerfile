@@ -16,14 +16,16 @@ RUN cp /resource/repo/cloudera-cdh5-local.repo /etc/yum.repos.d/ \
 RUN yum install hbase-master hbase-regionserver hive zookeeper zookeeper-server -y
 RUN yum install -y hive-metastore hive-server2 mysql-server mysql-connector-java
 
-COPY resource/cdh-conf/* cdh-conf/
+COPY resource/conf-cdh/* conf-cdh/
+COPY resource/parser-params.sh .
 
 RUN cp -r /etc/hadoop/conf.empty /etc/hadoop/conf.my_cluster \
  && alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.my_cluster 50 \
  && alternatives --set hadoop-conf /etc/hadoop/conf.my_cluster \
  && alternatives --display hadoop-conf \
- && cp -fR /root/cdh-conf/* /etc/hadoop/conf.my_cluster \
- && chmod 755 /root/cdh-conf/*
+ && cp -fR /root/conf-cdh/* /etc/hadoop/conf.my_cluster \
+ && chmod 755 /root/conf-cdh/*
+ && chmod 755 ./parser-params.sh
 
 # To configure local storage directories for use by HDFS
 RUN mkdir -p /data/1/dfs/nn /nfsmount/dfs/nn \
