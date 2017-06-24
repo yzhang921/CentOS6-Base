@@ -5,17 +5,17 @@ cd $curDir
 
 function start_zk() {
     echo "[INFO] Start zk ..."
-    pssh -h zk-nodes -i "service zookeeper-server start"
+    pssh -h zk-nodes -i "service zookeeper-server start" | grep -v "Permanently added"
 }
 
 function stop_zk() {
     echo "[INFO] Stop zk ..."
-    pssh -h zk-nodes -i "service zookeeper-server stop"
+    pssh -h zk-nodes -i "service zookeeper-server stop" | grep -v "Permanently added"
 }
 
 if [ "$init" = "y" ]; then
     echo "[INFO] Initialize zk ..."
-    pssh -v -h zk-nodes -i "conf-zookeeper/init-zk.sh"
+    pssh -v -h zk-nodes -i "conf-zookeeper/init-zk.sh" | grep -v "Permanently added"
 fi
 
 if [ "$start" = "y" ]; then

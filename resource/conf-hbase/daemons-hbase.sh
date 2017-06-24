@@ -6,13 +6,13 @@ cd $curDir
 function start_hbase() {
     echo "[INFO] Start HBase ..."
     service hbase-master start
-    pssh -h regionservers -i "service hbase-regionserver start"
+    pssh -h regionservers -i "service hbase-regionserver start" | grep -v "Permanently added"
 }
 
 function stop_hbase() {
     echo "[INFO] Stop HBase ..."
     service hbase-master stop
-    pssh -h regionservers -i "service hbase-regionserver stop"
+    pssh -h regionservers -i "service hbase-regionserver stop" | grep -v "Permanently added"
 }
 
 if [ "$init" = "y" ]; then

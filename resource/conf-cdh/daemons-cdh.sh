@@ -8,11 +8,11 @@ source ../parser-params.sh
 function start_cdh() {
   echo "[INFO] Start hdfs cluster"
   service hadoop-hdfs-namenode start
-  pssh -h slaves -i "service hadoop-hdfs-datanode start"
+  pssh -h slaves -i "service hadoop-hdfs-datanode start" | grep -v "Permanently added"
 
   echo "[INFO] Start yarn cluster"
   service hadoop-yarn-resourcemanager start
-  pssh -h slaves -i "service hadoop-yarn-nodemanager start"
+  pssh -h slaves -i "service hadoop-yarn-nodemanager start" | grep -v "Permanently added"
 }
 
 function init_cdh() {
@@ -33,11 +33,11 @@ function init_cdh() {
 function stop_cdh() {
   echo "[INFO] Stop hdfs cluster"
   service hadoop-hdfs-namenode stop
-  pssh -h slaves -i "service hadoop-hdfs-datanode start"
+  pssh -h slaves -i "service hadoop-hdfs-datanode start" | grep -v "Permanently added"
 
   echo "[INFO] Stop yarn cluster"
   service hadoop-yarn-resourcemanager stop
-  pssh -h slaves -i "service hadoop-yarn-nodemanager start"
+  pssh -h slaves -i "service hadoop-yarn-nodemanager start" | grep -v "Permanently added"
 }
 
 if [ "$init" = "y" ]; then

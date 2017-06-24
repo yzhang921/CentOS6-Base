@@ -36,7 +36,7 @@ while [ $# -gt 0 ]; do    # Until you run out of parameters . . .
         echo "set [stop] to y"
         ;;
     --restart)
-        init=y
+        restart=y
         echo "set [restart] to y"
         ;;
     * )

@@ -50,8 +50,8 @@ fi
 
 echo "[INFO] Start hdfs cluster"
 service hadoop-hdfs-namenode start
-pssh -h slaves -i "service hadoop-hdfs-datanode start"
+pssh -h slaves -i "service hadoop-hdfs-datanode start" | grep -v "Permanently added"
 
 echo "[INFO] Start yarn cluster"
 service hadoop-yarn-resourcemanager start
-pssh -h slaves -i "service hadoop-yarn-nodemanager start"
+pssh -h slaves -i "service hadoop-yarn-nodemanager start" | grep -v "Permanently added"
