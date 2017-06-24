@@ -19,13 +19,17 @@ RUN yum install -y hive-metastore hive-server2 mysql-server mysql-connector-java
 COPY resource/conf-cdh/* conf-cdh/
 COPY resource/parser-params.sh .
 
+RUN usermod -a -G hadoop root \
+ && usermod -a -G hadoop hbase \
+ && usermod -a -G hadoop hive
+
 RUN cp -r /etc/hadoop/conf.empty /etc/hadoop/conf.my_cluster \
  && alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.my_cluster 50 \
  && alternatives --set hadoop-conf /etc/hadoop/conf.my_cluster \
  && alternatives --display hadoop-conf \
  && cp -fR /root/conf-cdh/*.xml /etc/hadoop/conf.my_cluster \
  && cp -fR /root/conf-cdh/slaves /etc/hadoop/conf.my_cluster \
- && chmod 755 /root/conf-cdh/* \
+ && chmod 755 /root/conf-cdh/*.sh \
  && chmod 755 ./parser-params.sh
 
 # To configure local storage directories for use by HDFS
@@ -46,7 +50,7 @@ COPY resource/conf-zookeeper/* conf-zookeeper/
 RUN mkdir -p /var/lib/zookeeper \
  && cp -fR /root/conf-zookeeper/zoo.cfg /etc/zookeeper/conf \
  && chown -R zookeeper /var/lib/zookeeper/ \
- && chmod 755 /root/conf-zookeeper/*
+ && chmod 755 /root/conf-zookeeper/*.sh
 
 
 # Configure Hbase
@@ -60,7 +64,7 @@ RUN cp -fR /root/conf-hbase/hbase-site.xml /etc/hbase/conf \
 COPY resource/conf-hive/* conf-hive/
 RUN ln -s /usr/share/java/mysql-connector-java.jar /usr/lib/hive/lib/mysql-connector-java.jar \
  && cp -fR /root/conf-hive/hive-site.xml /etc/hive/conf \
- && chmod 755 /root/conf-hive/start-hive-daemons.sh
+ && chmod 755 /root/conf-hive/*.sh
 
 RUN yum clean all
 
