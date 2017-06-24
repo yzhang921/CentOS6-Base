@@ -16,11 +16,11 @@ docker build --network=host -t centos6-cdh-cmd .
 # 运行实例
 在宿主机上面运行启动容器集群脚本
 ```bash
-chmod 755 start-cluster.sh
+chmod 755 start-cluster-containers.sh
 # Change parameter of image name before start cluster containers
-./start-cluster.sh [your-image]
+./start-cluster-containers.sh [your-image]
 # For example， I build with name centos6-cdh-cmd then command like below：
-./start-cluster.sh centos6-cdh-cmd
+./start-cluster-containers.sh centos6-cdh-cmd
 ```
 
 # 进入集群Master启动CDH
@@ -34,23 +34,30 @@ cd cdh-conf
 http://localhost:50070 <HDFS管理界面>
 http://localhost:8088 <YARN监控界面>
 
+# 启动HDFS&YARN集群(在cmd-master容器上面运行启动脚本)
+```bash
+docker attach cmd-master
+# 第一次启动带 --init参数初始化zk集群
+conf-cdh/daemons-cdh.sh --init
+```
+
 # 运行测试任务
 ```bash
 # run pi
 hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar pi 10 100
 # run wordcount
 hdfs dfs -rm -r -f /tmp/output
-hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar wordcount /root/cdh-conf /tmp/output
+hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar wordcount /root/conf-cdh /tmp/output
 ```
 
 # 启动zookeeper集群(在cmd-master容器上面运行启动脚本)
 ```bash
 docker attach cmd-master
 # 第一次启动带 --init参数初始化zk集群
-conf-zookeeper/start-zk-daemons.sh --init
+conf-zookeeper/daemons-zk.sh --init --start
 ```
 
 # 启动HBase集群(在cmd-master容器上面运行启动脚本, 启动之前需要先启动ZK)
 ```bash
-conf-hbase/start-hbase-daemons.sh
+conf-hbase/daemons-hbase.sh --init --start
 ```
