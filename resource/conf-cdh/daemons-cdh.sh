@@ -5,21 +5,6 @@ cd $curDir
 
 source ../parser-params.sh
 
-
-function init_cdh() {
-  echo "[INFO] Start initial hdfs cluster"
-
-  echo "[INFO] Format hdfs..."
-  su - hdfs -c "hdfs namenode -format"
-
-  echo "[INFO] Add root to superuser group of hdfs"
-  usermod -a -G hadoop root
-
-  echo "[INFO] mkdir /root and put cdh-conf to hdfs"
-  hdfs dfs -mkdir /root
-  hdfs dfs -put /root/cdh-conf /root
-}
-
 function start_cdh() {
   echo "[INFO] Start hdfs cluster"
   service hadoop-hdfs-namenode start
@@ -28,6 +13,21 @@ function start_cdh() {
   echo "[INFO] Start yarn cluster"
   service hadoop-yarn-resourcemanager start
   pssh -h slaves -i "service hadoop-yarn-nodemanager start"
+}
+
+function init_cdh() {
+  echo "[INFO] Start initial hdfs cluster"
+
+  echo "[INFO] Format hdfs..."
+  su - hdfs -c "hdfs namenode -format"
+
+  start_cdh
+  echo "[INFO] Add root to superuser group of hdfs"
+  usermod -a -G hadoop root
+
+  echo "[INFO] mkdir /root and put cdh-conf to hdfs"
+  hdfs dfs -mkdir /root
+  hdfs dfs -put /root/cdh-conf /root
 }
 
 function stop_cdh() {
