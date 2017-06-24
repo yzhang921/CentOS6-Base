@@ -8,11 +8,11 @@ cd /usr/lib/hive/scripts/metastore/upgrade/mysql/
 mysql -uroot -p
 # Copy  and execute sql in metastore.sql
 
+# @cmd-master
+conf-hive/daemons-hive.sh --init --start
 
-conf-hive/daemon-hive.sh --init --start
 
-
-netstat -anp
+ssh root@hive-server2 netstat -anp
 # connect to hive-server2 @ any node where hive-client installed
 /usr/lib/hive/bin/beeline
 beeline> !connect jdbc:hive2://hive-server2:10000
