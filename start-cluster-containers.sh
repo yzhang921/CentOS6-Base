@@ -74,17 +74,15 @@ function run-master() {
       -itd \
       --hostname=${MASTER_NAME} \
       --network=hadoop \
-      # hdfs port
       -p 50070:50070 \
-      # yarn port
       -p 8088:8088 \
-      # hbase port
       -p 60010:60010 \
-      #impala port
       -p 25010:25010 \
       -p 25020:25020 \
       --privileged=true \
       ${image}
+  # 50070: HDFS, 8088:YARN, 60010: HBase
+  # 25010: Impala statestored, 25020: catalogd
 }
 
 if [ "$mode" = "run" ]; then
