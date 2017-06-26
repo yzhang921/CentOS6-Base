@@ -38,8 +38,8 @@ RUN cp -r /etc/hadoop/conf.empty /etc/hadoop/conf.my_cluster \
 RUN mkdir -p /data/1/dfs/nn /nfsmount/dfs/nn \
  && mkdir -p /data/1/dfs/dn /data/2/dfs/dn \
  && chown -R hdfs:hdfs /data/1/dfs/nn /nfsmount/dfs/nn /data/1/dfs/dn /data/2/dfs/dn \
- && mkdir -p /var/run/hdfs-sockets/dn \
- && chown -R hdfs:hdfs /var/run/hdfs-sockets/dn \
+ && mkdir -p /var/run/hdfs-sockets \
+ && chown -R hdfs:hdfs /var/run/hdfs-sockets \
  && chmod 700 /data/1/dfs/nn /nfsmount/dfs/nn
 
 # To configure local storage directories for use by YARN
