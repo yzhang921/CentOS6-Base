@@ -73,7 +73,8 @@ COPY resource/conf-impala/* conf-impala/
 RUN cp -fR /root/conf-cdh/core-site.xml /etc/impala/conf/ \
  && cp -fR /root/conf-cdh/hdfs-site.xml /etc/impala/conf/ \
  && cp -fR /root/conf-hive/hive-site.xml /etc/impala/conf/ \
- && cp -fR /root/conf-hbase/hbase-site.xml /etc/impala/conf/
+ && cp -fR /root/conf-hbase/hbase-site.xml /etc/impala/conf/ \
+ && cp -fR /root/conf-impala/impala /etc/default
 
 
 RUN yum clean all \
