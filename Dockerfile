@@ -1,11 +1,11 @@
-#FROM centos6-base
-FROM 43914423/centos6-base
+FROM centos6-base
+#FROM 43914423/centos6-base
 WORKDIR /root
 
 COPY resource/repo/* /resource/repo/
 
 # 163 Mirror
-RUN cp /resource/repo/cloudera-cdh5-local.repo /etc/yum.repos.d/ \
+RUN cp /resource/repo/cloudera-cdh5.7.1-ctrip.repo /etc/yum.repos.d/ \
  && ls -l /etc/yum.repos.d \
  && yum clean all \
  && yum makecache \
