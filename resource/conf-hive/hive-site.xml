@@ -60,4 +60,9 @@
         <description>Zookeeper quorum used by Hive's Table Lock Manager</description>
         <value>zk-node1:2181,zk-node2:2181,zk-node3:2181</value>
     </property>
+    <property>
+        <name>hive.metastore.client.socket.timeout</name>
+        <value>3600</value>
+        <description>MetaStore Client socket timeout in seconds</description>
+    </property>
 </configuration>

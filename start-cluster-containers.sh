@@ -77,8 +77,12 @@ function run-master() {
       -p 50070:50070 \
       -p 8088:8088 \
       -p 60010:60010 \
+      -p 25010:25010 \
+      -p 25020:25020 \
       --privileged=true \
       ${image}
+  # 50070: HDFS, 8088:YARN, 60010: HBase
+  # 25010: Impala statestored, 25020: catalogd
 }
 
 if [ "$mode" = "run" ]; then
