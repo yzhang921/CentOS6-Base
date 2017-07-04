@@ -2,6 +2,8 @@
 FROM centos6-base
 WORKDIR /root
 
+COPY resource/repo/* /resource/repo/
+
 RUN rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch \
  && cp /resource/repo/elasticsearch.repo /etc/yum.repos.d/ \
  && yum clean all \
