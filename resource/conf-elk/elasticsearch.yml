@@ -29,7 +29,7 @@ node.name: ${HOSTNAME}
 #    --------------------------------- Discovery ----------------------------------
 #    Pass an initial list of hosts to perform discovery when new node is started:
 #     The default list of hosts is ["127.0.0.1", "[::1]"]
-#discovery.zen.ping.unicast.hosts: ["host1", "host2"]
+discovery.zen.ping.unicast.hosts: ["es-master", "es-slave1", "es-slave2"]
 #     Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
 #discovery.zen.minimum_master_nodes: 3
 #    For more information, consult the zen discovery module documentation.
