@@ -14,7 +14,10 @@ ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk.x86_64
 
 COPY resource/conf-elk/* conf-elk/
 
-RUN cp -fR /root/conf-elk/elasticsearch.yml /etc/elasticsearch/
+RUN cp -fR /root/conf-elk/elasticsearch.yml /etc/elasticsearch/ \
+ && chmod 755 /root/conf-*/*.sh \
+ && chmod 755 /root/*.sh
+
 
 
 CMD /sbin/service sshd start && zsh
