@@ -12,6 +12,7 @@ RUN rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch \
 
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk.x86_64
 
+COPY resource/parser-params.sh .
 COPY resource/conf-elk/* conf-elk/
 
 RUN cp -fR /root/conf-elk/elasticsearch.yml /etc/elasticsearch/ \
