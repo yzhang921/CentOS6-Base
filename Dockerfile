@@ -10,6 +10,10 @@ RUN rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch \
  && yum makecache \
  && yum install -y elasticsearch kibana logstash java-1.8.0-openjdk java-1.8.0-openjdk-devel
 
+
+RUN /usr/share/kibana/bin/kibana-plugin install x-pack \
+ && /usr/share/elasticsearch/bin/elasticsearch-plugin install x-pack
+
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk.x86_64
 
 COPY resource/parser-params.sh .
