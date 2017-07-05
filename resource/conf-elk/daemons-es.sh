@@ -6,20 +6,22 @@ source ../parser-params.sh
 
 function start_elasticsearch() {
     echo "[INFO] Start elasticsearch ..."
+    echo "[INFO] Start Coordinator.."
+    service elasticsearch start
     pssh -h nodes -i "ES_JAVA_OPTS='-Xms256 -Xmx1g'; service elasticsearch start" | grep -v "Permanently added"
 }
 
 function stop_elasticsearch() {
     echo "[INFO] Stop elasticsearch ..."
+    echo "[INFO] Stop Coordinator.."
+    service elasticsearch stop
     pssh -h nodes -i "service elasticsearch stop" | grep -v "Permanently added"
 }
 
 if [ "$init" = "y" ]; then
     echo "[INFO] Initialize elasticsearch ..."
-    echo "[INFO] Configure Coordinator.."
-    cp -fR /root/conf-elk/es-coordinator.yml /etc/elasticsearch/elasticsearch.yml
-    local_ip=`ifconfig eth0 |grep "inet addr"| cut -f 2 -d ":"|cut -f 1 -d " "`
-    echo "transport.host: ${local_ip}" >> /etc/elasticsearch/elasticsearch.yml
+    echo "[INFO] Configure coordinator.."
+    pssh -v -H "es-master" -i "conf-elk/init-es.sh" | grep -v "Permanently added"
     pssh -v -h nodes -i "conf-elk/init-es.sh" | grep -v "Permanently added"
 fi
 

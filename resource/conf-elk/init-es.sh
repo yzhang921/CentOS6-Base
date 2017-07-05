@@ -1,7 +1,15 @@
 #!/bin/bash
 
+node=$1
+
 local_ip=`ifconfig eth0 |grep "inet addr"| cut -f 2 -d ":"|cut -f 1 -d " "`
-echo "network.host: ${local_ip}" >> /etc/elasticsearch/elasticsearch.yml
+
+if [ "$node" = "master" ]; then
+  cp -fR /root/conf-elk/es-coordinator.yml /etc/elasticsearch/elasticsearch.yml
+  echo "\ntransport.host: ${local_ip}" >> /etc/elasticsearch/elasticsearch.yml
+else
+  echo "network.host: ${local_ip}" >> /etc/elasticsearch/elasticsearch.yml
+fi
 
 
 # [ERROR][o.e.b.Bootstrap          ] [es-master] node validation exception

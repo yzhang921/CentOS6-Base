@@ -10,4 +10,4 @@ discovery.zen.ping.unicast.hosts: ["es-master", "es-slave1", "es-slave2"]
 
 # by default transport.host refers to network.host
 #transport.host: <external ip>
-transport.tcp.port: 9300 - 9400
+transport.tcp.port: 9300
