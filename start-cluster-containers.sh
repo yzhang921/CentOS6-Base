@@ -139,6 +139,7 @@ fi
 process-slaves es-slave
 
 
-
-# get into hadoop master container
-# sudo docker attach ${MASTER_NAME}
+if [ "$mode" = "run" ] || [ "$mode" = "start" ]; then
+    # get into hadoop master container
+    sudo docker attach ${MASTER_NAME}
+fi
