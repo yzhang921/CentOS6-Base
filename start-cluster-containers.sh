@@ -94,7 +94,7 @@ fi
 # ======================================================================================================================================
 # start Elastisearch cluster
 # the default node number is 3
-N=1
+N=2
 function run-slave() {
   sudo docker rm -f ${SLAVE_NAME} &> /dev/null
   echo "[INFO] Run ${SLAVE_NAME} container..."

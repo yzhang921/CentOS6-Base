@@ -6,7 +6,7 @@ source ../parser-params.sh
 
 function start_elasticsearch() {
     echo "[INFO] Start elasticsearch ..."
-    pssh -h nodes -i "service elasticsearch start" | grep -v "Permanently added"
+    pssh -h nodes -i "ES_JAVA_OPTS='-Xms256 -Xmx1g'; service elasticsearch start" | grep -v "Permanently added"
 }
 
 function stop_elasticsearch() {
