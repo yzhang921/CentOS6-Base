@@ -1,0 +1,13 @@
+cluster.name: my-docker-es
+node.name: ${HOSTNAME}
+node.master: false
+node.data: false
+node.ingest: false
+network.host: localhost
+http.port: 9200
+
+discovery.zen.ping.unicast.hosts: ["es-master", "es-slave1", "es-slave2"]
+
+# by default transport.host refers to network.host
+#transport.host: <external ip>
+transport.tcp.port: 9300 - 9400

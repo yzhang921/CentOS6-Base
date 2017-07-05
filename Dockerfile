@@ -10,11 +10,10 @@ RUN rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch \
  && yum makecache \
  && yum install -y elasticsearch kibana logstash java-1.8.0-openjdk java-1.8.0-openjdk-devel
 
-
-RUN /usr/share/kibana/bin/kibana-plugin install x-pack \
- && /usr/share/elasticsearch/bin/elasticsearch-plugin install x-pack
-
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk.x86_64
+
+RUN /usr/share/kibana/bin/kibana-plugin install http://10.15.110.8/elk/noarch/x-pack-5.4.3.zip
+RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install http://10.15.110.8/elk/noarch/x-pack-5.4.3.zip --batch
 
 COPY resource/parser-params.sh .
 COPY resource/conf-elk/* conf-elk/
@@ -23,7 +22,6 @@ RUN cp -fR /root/conf-elk/elasticsearch.yml /etc/elasticsearch/ \
  && cp -fR /root/conf-elk/jvm.options /etc/elasticsearch/ \
  && chmod 755 /root/conf-*/*.sh \
  && chmod 755 /root/*.sh
-
 
 
 CMD /sbin/service sshd start && zsh

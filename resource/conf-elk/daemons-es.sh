@@ -16,6 +16,10 @@ function stop_elasticsearch() {
 
 if [ "$init" = "y" ]; then
     echo "[INFO] Initialize elasticsearch ..."
+    echo "[INFO] Configure Coordinator.."
+    cp -fR /root/conf-elk/es-coordinator.yml /etc/elasticsearch/elasticsearch.yml
+    local_ip=`ifconfig eth0 |grep "inet addr"| cut -f 2 -d ":"|cut -f 1 -d " "`
+    echo "transport.host: ${local_ip}" >> /etc/elasticsearch/elasticsearch.yml
     pssh -v -h nodes -i "conf-elk/init-es.sh" | grep -v "Permanently added"
 fi
 
