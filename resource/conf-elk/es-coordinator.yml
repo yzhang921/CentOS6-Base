@@ -8,6 +8,9 @@ http.port: 9200
 
 discovery.zen.ping.unicast.hosts: ["es-master", "es-slave1", "es-slave2"]
 
+
+xpack.security.enabled: false
+
 # by default transport.host refers to network.host
 #transport.host: <external ip>
 transport.tcp.port: 9300

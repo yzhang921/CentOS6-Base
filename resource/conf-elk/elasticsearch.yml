@@ -26,6 +26,7 @@ node.name: ${HOSTNAME}
 #http.port: 9200
 #    For more information, consult the network module documentation.
 #
+xpack.security.enabled: false
 #    --------------------------------- Discovery ----------------------------------
 #    Pass an initial list of hosts to perform discovery when new node is started:
 #     The default list of hosts is ["127.0.0.1", "[::1]"]
