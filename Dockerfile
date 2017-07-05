@@ -20,6 +20,7 @@ COPY resource/conf-elk/* conf-elk/
 
 RUN cp -fR /root/conf-elk/elasticsearch.yml /etc/elasticsearch/ \
  && cp -fR /root/conf-elk/jvm.options /etc/elasticsearch/ \
+ && cp -fR /root/conf-elk/kibana.yml /etc/kibana/ \
  && chmod 755 /root/conf-*/*.sh \
  && chmod 755 /root/*.sh
 
