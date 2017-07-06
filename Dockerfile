@@ -25,26 +25,25 @@ RUN yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel
 ENV ELK_VERION="5.4.3"
 
 #RUN mkdir install \
-# && wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ELK_VERION}.rpm -P install
-# && wget https://artifacts.elastic.co/downloads/kibana/kibana-${ELK_VERION}-x86_64.rpm -P install
-# && wget https://artifacts.elastic.co/downloads/logstash/logstash-${ELK_VERION}.rpm -P install
+# && wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ELK_VERION}.rpm -P install \
+# && wget https://artifacts.elastic.co/downloads/kibana/kibana-${ELK_VERION}-x86_64.rpm -P install \
+# && wget https://artifacts.elastic.co/downloads/logstash/logstash-${ELK_VERION}.rpm -P install \
 # && wget https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-${ELK_VERION}.zip -P install
 
 RUN mkdir install \
- && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/elasticsearch-${ELK_VERION}.rpm -P install
- && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/kibana-${ELK_VERION}.rpm -P install
- && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/logstash-${ELK_VERION}.rpm -P install
+ && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/elasticsearch-${ELK_VERION}.rpm -P install \
+ && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/kibana-${ELK_VERION}.rpm -P install \
+ && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/logstash-${ELK_VERION}.rpm -P install \
  && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/x-pack-${ELK_VERION}.zip -P install
 
-RUN rpm --install install/elasticsearch-${ELK_VERION}.rpm
- && rpm --install install/kibana-${ELK_VERION}.rpm
+RUN rpm --install install/elasticsearch-${ELK_VERION}.rpm \
+ && rpm --install install/kibana-${ELK_VERION}.rpm \
  && rpm --install install/logstash-${ELK_VERION}.rpm
 
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk.x86_64
 
 RUN /usr/share/kibana/bin/kibana-plugin install file:///root/install/x-pack-${ELK_VERION}.zip
 RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install file:///root/install/x-pack-${ELK_VERION}.zip --batch
-
 
 COPY resource/parser-params.sh .
 COPY resource/conf-elk/* conf-elk/
