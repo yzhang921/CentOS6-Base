@@ -37,7 +37,7 @@ RUN mkdir install \
  && wget -q http://10.15.110.8/elk/rpm/${ELK_VERION}/x-pack-${ELK_VERION}.zip -P install
 
 RUN rpm --install install/elasticsearch-${ELK_VERION}.rpm \
- && rpm --install install/kibana-${ELK_VERION}.rpm \
+ && rpm --install install/kibana-${ELK_VERION}-x86_64.rpm \
  && rpm --install install/logstash-${ELK_VERION}.rpm
 
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk.x86_64
