@@ -31,10 +31,10 @@ ENV ELK_VERION="5.4.3"
 # && wget https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-${ELK_VERION}.zip -P install
 
 RUN mkdir install \
- && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/elasticsearch-${ELK_VERION}.rpm -P install \
- && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/kibana-${ELK_VERION}.rpm -P install \
- && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/logstash-${ELK_VERION}.rpm -P install \
- && wget http://10.15.110.8/elk/rpm/${ELK_VERION}/x-pack-${ELK_VERION}.zip -P install
+ && wget -q http://10.15.110.8/elk/rpm/${ELK_VERION}/elasticsearch-${ELK_VERION}.rpm -P install \
+ && wget -q http://10.15.110.8/elk/rpm/${ELK_VERION}/kibana-${ELK_VERION}-x86_64.rpm -P install \
+ && wget -q http://10.15.110.8/elk/rpm/${ELK_VERION}/logstash-${ELK_VERION}.rpm -P install \
+ && wget -q http://10.15.110.8/elk/rpm/${ELK_VERION}/x-pack-${ELK_VERION}.zip -P install
 
 RUN rpm --install install/elasticsearch-${ELK_VERION}.rpm \
  && rpm --install install/kibana-${ELK_VERION}.rpm \
