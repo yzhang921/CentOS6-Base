@@ -19,7 +19,7 @@ RUN cp -fR conf-cdh/core-site.xml ${DRUID_HOME}/conf/druid/_common/ \
  && cp -fR conf-cdh/hdfs-site.xml ${DRUID_HOME}/conf/druid/_common/ \
  && cp -fR conf-cdh/yarn-site.xml ${DRUID_HOME}/conf/druid/_common/ \
  && cp -fR conf-cdh/mapred-site.xml ${DRUID_HOME}/conf/druid/_common/ \
- && cp -fR conf-druid/druid/ ${DRUID_HOME}/conf/druid/ \
+ && cp -fR conf-druid/druid/ ${DRUID_HOME}/conf/ \
  && mkdir -p /var/log/druid
 
 CMD /sbin/service sshd start && zsh
