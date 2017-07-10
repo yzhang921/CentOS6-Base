@@ -15,10 +15,11 @@ ENV DRUID_HOME=/root/druid-0.10.0
 COPY resource/conf-druid/ conf-druid/
 COPY resource/conf-cdh conf-cdh/
 
-RUN cp -fR conf-cdh/core-site.xml ${DRUID_HOME}/conf/ \
- && cp -fR conf-cdh/hdfs-site.xml ${DRUID_HOME}/conf/ \
- && cp -fR conf-cdh/yarn-site.xml ${DRUID_HOME}/conf/ \
- && cp -fR conf-cdh/mapred-site.xml ${DRUID_HOME}/conf/ \
+RUN cp -fR conf-cdh/core-site.xml ${DRUID_HOME}/conf/druid/_common/ \
+ && cp -fR conf-cdh/hdfs-site.xml ${DRUID_HOME}/conf/druid/_common/ \
+ && cp -fR conf-cdh/yarn-site.xml ${DRUID_HOME}/conf/druid/_common/ \
+ && cp -fR conf-cdh/mapred-site.xml ${DRUID_HOME}/conf/druid/_common/ \
+ && cp -fR conf-druid/druid/ ${DRUID_HOME}/conf/druid/ \
  && mkdir -p /var/log/druid
 
 CMD /sbin/service sshd start && zsh
