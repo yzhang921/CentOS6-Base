@@ -12,8 +12,8 @@ RUN mkdir install \
 
 ENV DRUID_HOME=/root/druid-0.10.0
 
-COPY conf/ conf-druid/
-COPY ../resource/conf-cdh/ conf-cdh/
+COPY resource/conf_druid/ conf-druid/
+COPY resource/conf-cdh/ conf-cdh/
 
 RUN cp -fR conf-cdh/core-site.xml ${DRUID_HOME}/conf/ \
  && cp -fR conf-cdh/hdfs-site.xml ${DRUID_HOME}/conf/ \
