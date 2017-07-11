@@ -1,13 +1,19 @@
 #!/bin/bash
 
 curDir=$(cd `dirname $0`; pwd)
-cd $curDir
-
-
 cd $DRUID_HOME
 
-# start coordinator
-java `cat conf/druid/coordinator/jvm.config | xargs` -cp conf/druid/_common:conf/druid/coordinator:lib/* io.druid.cli.Main server coordinator \
 
+# start coordinator
+druid-sbin/start-coordinator.sh
 # start overload
-java `cat conf/druid/overlord/jvm.config | xargs` -cp conf/druid/_common:conf/druid/overlord:lib/* io.druid.cli.Main server overlord \
+druid-sbin/start-overload.sh
+
+
+# start historicals and middleManagers
+pssh -h historicals -i "/root/druid-sbin/start-historical.sh" | grep -v "Permanently added"
+pssh -h historicals -i "/root/druid-sbin/start-middleManager.sh" | grep -v "Permanently added"
+
+
+# start broker
+ssh root@druid-broker /root/druid-sbin/start-broker.sh

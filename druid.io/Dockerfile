@@ -14,13 +14,15 @@ ENV DRUID_HOME=/root/druid-0.10.0
 
 COPY resource/conf-druid/ conf-druid/
 COPY resource/conf-cdh conf-cdh/
+COPY resource/druid-sbin druid-sbin/
 
 RUN cp -fR conf-cdh/core-site.xml ${DRUID_HOME}/conf/druid/_common/ \
  && cp -fR conf-cdh/hdfs-site.xml ${DRUID_HOME}/conf/druid/_common/ \
  && cp -fR conf-cdh/yarn-site.xml ${DRUID_HOME}/conf/druid/_common/ \
  && cp -fR conf-cdh/mapred-site.xml ${DRUID_HOME}/conf/druid/_common/ \
  && cp -fR conf-druid/druid/ ${DRUID_HOME}/conf/ \
- && mkdir -p /var/log/druid
+ && mkdir -p /var/log/druid \
+ && chmod 755 */*.sh
 
 CMD /sbin/service sshd start && zsh
 

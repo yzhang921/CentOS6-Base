@@ -64,7 +64,7 @@ function checkAndStart() {
 }
 
 # ======================================================================================================================================
-# start hadoop master container
+# start ruid-coordinator and overload / container
 MASTER_NAME="druid-coord"
 
 function run-master() {
@@ -74,7 +74,7 @@ function run-master() {
       -itd \
       --hostname=${MASTER_NAME} \
       --network=hadoop \
-      -p 18081:8081  \
+      -p 8081:8081  \
       ${image}
   # 8081: Coordinator
 }
@@ -86,4 +86,78 @@ elif [ "$mode" = "start" ]; then
 elif [ "$mode" = "stop" ]; then
   echo "[INFO] stop ${MASTER_NAME} container..."
   sudo docker stop ${MASTER_NAME}
+fi
+
+
+# ======================================================================================================================================
+# start Historicals and MiddleManagers container
+# the default node number is 2
+N=2
+function run-slave() {
+  sudo docker rm -f ${SLAVE_NAME} &> /dev/null
+  echo "[INFO] Run ${SLAVE_NAME} container..."
+  sudo docker run --name=${SLAVE_NAME} \
+      -itd \
+      --hostname=${SLAVE_NAME} \
+      --network=hadoop \
+      --privileged=true \
+      ${image}
+}
+
+function process-slaves(){
+  COMPONENT=$1
+  if [ "$mode" = "run" ]; then
+  i=1
+  while [ $i -le $N ]; do
+    SLAVE_NAME=${COMPONENT}$i
+    run-slave
+    i=$(( $i + 1 ))
+  done
+elif [ "$mode" = "start" ]; then
+  i=1
+  while [ $i -le $N ]
+  do
+    SLAVE_NAME=${COMPONENT}$i
+    echo "[INFO] start ${SLAVE_NAME} container..."
+    checkAndStart ${SLAVE_NAME} "run-slave"
+    i=$(( $i + 1 ))
+  done
+elif [ "$mode" = "stop" ]; then
+  i=1
+  while [ $i -le $N ]
+  do
+    SLAVE_NAME=${COMPONENT}$i
+    echo "[INFO] stop ${SLAVE_NAME} container..."
+    sudo docker stop ${SLAVE_NAME}
+    i=$(( $i + 1 ))
+  done
+fi
+}
+
+process-slaves druid-histor
+
+
+# ======================================================================================================================================
+# start broker
+
+BROKER_NAME="druid-broker"
+function run-druid-broker(){
+  sudo docker rm -f ${BROKER_NAME} &> /dev/null
+  echo "start ${BROKER_NAME} container..."
+  sudo docker run --name=${BROKER_NAME} \
+      -itd \
+      --hostname=${BROKER_NAME} \
+      --network=hadoop \
+      -p 8082:8082 \
+      --privileged=true \
+      ${image}
+}
+
+if [ "$mode" = "run" ]; then
+  run-druid-broker
+elif [ "$mode" = "start" ]; then
+  checkAndStart ${BROKER_NAME} "run-hive-server2"
+elif [ "$mode" = "stop" ]; then
+  echo "stop ${BROKER_NAME} container..."
+  sudo docker stop ${BROKER_NAME}
 fi
