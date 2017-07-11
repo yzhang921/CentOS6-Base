@@ -3,7 +3,7 @@
 curDir=$(cd `dirname $0`; pwd)
 cd $curDir
 
-myhost="10.32.82.137 myhost"
+myhost="myhost:10.32.82.137"
 
 function display_usage() {
 cat << EOF
