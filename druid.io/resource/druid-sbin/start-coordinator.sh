@@ -1,6 +1,8 @@
 #!/bin/bash
 
 curDir=$(cd `dirname $0`; pwd)
+source ${curDir}/env.sh
+
 cd $DRUID_HOME
 
 # start coordinator
