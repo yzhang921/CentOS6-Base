@@ -11,8 +11,8 @@ cd $DRUID_HOME
 
 
 # start historicals and middleManagers
-pssh -h historicals -i "/root/druid-sbin/start-historical.sh" | grep -v "Permanently added"
-pssh -h historicals -i "/root/druid-sbin/start-middleManager.sh" | grep -v "Permanently added"
+pssh -h ../druid-sbin/historicals -i "/root/druid-sbin/start-historical.sh" | grep -v "Permanently added"
+pssh -h ../druid-sbin/historicals -i "/root/druid-sbin/start-middleManager.sh" | grep -v "Permanently added"
 
 
 # start broker
