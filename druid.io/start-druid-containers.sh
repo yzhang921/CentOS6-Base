@@ -3,6 +3,8 @@
 curDir=$(cd `dirname $0`; pwd)
 cd $curDir
 
+myhost="10.32.82.137 myhost"
+
 function display_usage() {
 cat << EOF
   usage: $0 -m|-mode=[run|start|stop] -i|-image=[image name] -h|--hlep
@@ -74,6 +76,7 @@ function run-master() {
       -itd \
       --hostname=${MASTER_NAME} \
       --network=hadoop \
+      --add-host="${myhost}" \
       -p 8081:8081  \
       ${image}
   # 8081: Coordinator
@@ -100,7 +103,7 @@ function run-slave() {
       -itd \
       --hostname=${SLAVE_NAME} \
       --network=hadoop \
-      --privileged=true \
+      --add-host="${myhost}" \
       ${image}
 }
 
@@ -149,7 +152,7 @@ function run-druid-broker(){
       --hostname=${BROKER_NAME} \
       --network=hadoop \
       -p 8082:8082 \
-      --privileged=true \
+      --add-host="${myhost}" \
       ${image}
 }
 
