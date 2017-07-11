@@ -1,8 +1,6 @@
 #!/bin/bash
 
 curDir=$(cd `dirname $0`; pwd)
-source ../druid-sbin/hostnames.sh
-
 cd $DRUID_HOME
 
 # start overload
