@@ -24,6 +24,9 @@ RUN cp -fR conf-cdh/core-site.xml ${DRUID_HOME}/conf/druid/_common/ \
  && mkdir -p /var/log/druid \
  && chmod 755 */*.sh
 
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk.x86_64
+ENV DRUID_HOME=/root/druid-0.10.0
+
 CMD /sbin/service sshd start && zsh
 
 # docker build --network=host -t centos6-druid .
