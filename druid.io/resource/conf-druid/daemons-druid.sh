@@ -5,9 +5,9 @@ cd $DRUID_HOME
 
 
 # start coordinator
-druid-sbin/start-coordinator.sh
+../druid-sbin/start-coordinator.sh
 # start overload
-druid-sbin/start-overload.sh
+../druid-sbin/start-overload.sh
 
 
 # start historicals and middleManagers

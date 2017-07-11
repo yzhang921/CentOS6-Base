@@ -161,3 +161,5 @@ elif [ "$mode" = "stop" ]; then
   echo "stop ${BROKER_NAME} container..."
   sudo docker stop ${BROKER_NAME}
 fi
+
+docker attach ${MASTER_NAME}
