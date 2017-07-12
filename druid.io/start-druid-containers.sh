@@ -78,6 +78,7 @@ function run-master() {
       --network=hadoop \
       --add-host="${myhost}" \
       -p 8081:8081  \
+      -p 8090:8090  \
       ${image}
   # 8081: Coordinator
 }
