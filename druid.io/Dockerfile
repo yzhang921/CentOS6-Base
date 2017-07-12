@@ -10,8 +10,7 @@ RUN mkdir install \
  && wget -q http://10.15.110.8/druid.io/druid-0.10.0-bin.tar.gz -P install \
  && wget -q http://10.15.110.8/druid.io/mysql-metadata-storage-0.10.0.tar.gz -P install \
  && tar -xzf install/druid-0.10.0-bin.tar.gz \
- && tar -xzf install/mysql-metadata-storage-0.10.0.tar.gz -C install \
- && mv install/mysql-metadata-storage/* druid-0.10.0/lib
+ && tar -xzf install/mysql-metadata-storage-0.10.0.tar.gz -C druid-0.10.0/extensions
 
 
 ENV DRUID_HOME=/root/druid-0.10.0
