@@ -3,6 +3,8 @@
 curDir=$(cd `dirname $0`; pwd)
 cd $curDir
 
+myhost="myhost:10.32.82.137"
+
 function display_usage() {
 cat << EOF
   usage: $0 -m|-mode=[run|start|stop] -i|-image=[image name] -h|--hlep
@@ -74,11 +76,13 @@ function run-master() {
       -itd \
       --hostname=${MASTER_NAME} \
       --network=hadoop \
+      --add-host="${myhost}" \
       -p 50070:50070 \
       -p 8088:8088 \
       -p 60010:60010 \
       -p 25010:25010 \
       -p 25020:25020 \
+      -p 1022:22 \
       --privileged=true \
       ${image}
   # 50070: HDFS, 8088:YARN, 60010: HBase
@@ -105,6 +109,7 @@ function run-slave() {
       -itd \
       --hostname=${SLAVE_NAME} \
       --network=hadoop \
+      --add-host="${myhost}" \
       --privileged=true \
       ${image}
 }
@@ -158,6 +163,7 @@ function run-hive-server2(){
       -itd \
       --hostname=${MASTER_NAME} \
       --network=hadoop \
+      --add-host="${myhost}" \
       -p 3306:3306 \
       -p 10002:10002 \
       --privileged=true \
