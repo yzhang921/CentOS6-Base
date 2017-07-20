@@ -180,4 +180,4 @@ elif [ "$mode" = "stop" ]; then
 fi
 
 # get into hadoop master container
-# sudo docker attach ${MASTER_NAME}
+sudo docker attach ${MASTER_NAME}
