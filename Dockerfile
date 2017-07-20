@@ -19,6 +19,14 @@ RUN yum install -y hive-metastore hive-server2 mysql-server mysql-connector-java
 # Install Impala, comment this command if you don't use impala
 RUN yum install -y impala impala-server impala-state-store impala-catalog impala-shell
 
+# Oracle JDK1.8
+RUN mkdir install \
+ && wget http://10.15.110.8/jdk-oracle/jdk-8u121-linux-x64.tar.gz -P install \
+ && tar -zxf install/jdk-8u121-linux-x64.tar.gz -C /opt \
+ && ln -s /opt/jdk1.8.0_121 /opt/jdk8
+
+ENV JAVA_HOME=/opt/jdk8
+
 COPY resource/conf-cdh/* conf-cdh/
 COPY resource/parser-params.sh .
 
