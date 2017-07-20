@@ -23,10 +23,10 @@ RUN yum install -y impala impala-server impala-state-store impala-catalog impala
 RUN mkdir install \
  && wget -q http://10.15.110.8/jdk-oracle/jdk-8u121-linux-x64.tar.gz -P install \
  && tar -zxf install/jdk-8u121-linux-x64.tar.gz -C /opt \
- && ln -s /opt/jdk1.8.0_121 /opt/jdk8 \
- && export PATH=/opt/jdk8/bin:${PATH}
+ && ln -s /opt/jdk1.8.0_121 /opt/jdk8
 
 ENV JAVA_HOME=/opt/jdk8
+ENV PATH ${JAVA_HOME}/bin:${PATH}
 
 COPY resource/conf-cdh/* conf-cdh/
 COPY resource/parser-params.sh .
