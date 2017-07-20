@@ -155,13 +155,13 @@ process-slaves zk-node
 # ======================================================================================================================================
 # start hive-server2, metastore on this container
 
-MASTER_NAME="hive-server2"
+HIVE_SERVER="hive-server2"
 function run-hive-server2(){
-  sudo docker rm -f ${MASTER_NAME} &> /dev/null
-  echo "start ${MASTER_NAME} container..."
-  sudo docker run --name=${MASTER_NAME} \
+  sudo docker rm -f ${HIVE_SERVER} &> /dev/null
+  echo "start ${HIVE_SERVER} container..."
+  sudo docker run --name=${HIVE_SERVER} \
       -itd \
-      --hostname=${MASTER_NAME} \
+      --hostname=${HIVE_SERVER} \
       --network=hadoop \
       --add-host="${myhost}" \
       -p 3306:3306 \
@@ -173,10 +173,10 @@ function run-hive-server2(){
 if [ "$mode" = "run" ]; then
   run-hive-server2
 elif [ "$mode" = "start" ]; then
-  checkAndStart ${MASTER_NAME} "run-hive-server2"
+  checkAndStart ${HIVE_SERVER} "run-hive-server2"
 elif [ "$mode" = "stop" ]; then
-  echo "stop ${MASTER_NAME} container..."
-  sudo docker stop ${MASTER_NAME}
+  echo "stop ${HIVE_SERVER} container..."
+  sudo docker stop ${HIVE_SERVER}
 fi
 
 # get into hadoop master container
