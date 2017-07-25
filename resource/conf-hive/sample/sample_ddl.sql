@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS omniture;
+DROP DATABASE IF EXISTS omniture CASCADE;
 CREATE DATABASE omniture;
 
 USE omniture;
@@ -41,6 +41,6 @@ AS
 SELECT col_2 ts, col_8 ip, col_13 url, col_14 swid, col_50 city, col_51 country, col_53 state
 FROM omniturelogs;
 
-LOAD DATA INPATH '/root/conf-hive/sample/products.tsv' OVERWRITE INTO TABLE products;
-LOAD DATA INPATH '/root/conf-hive/sample/users.tsv' OVERWRITE INTO TABLE users;
-LOAD DATA INPATH '/root/conf-hive/sample/omniture-logs.tsv' OVERWRITE INTO TABLE omniturelogs;
+LOAD DATA LOCAL INPATH '/root/conf-hive/sample/products.tsv' OVERWRITE INTO TABLE products;
+LOAD DATA LOCAL INPATH '/root/conf-hive/sample/users.tsv' OVERWRITE INTO TABLE users;
+LOAD DATA LOCAL INPATH '/root/conf-hive/sample/omniture-logs.tsv' OVERWRITE INTO TABLE omniturelogs;
