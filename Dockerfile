@@ -20,6 +20,7 @@ RUN yum install -y hive-metastore hive-server2 mysql-server mysql-connector-java
 RUN yum install -y impala impala-server impala-state-store impala-catalog impala-shell
 
 # Oracle JDK1.8
+# Impala need Oracle JVM to run
 RUN mkdir install \
  && wget -q http://10.15.110.8/jdk-oracle/jdk-8u121-linux-x64.tar.gz -P install \
  && tar -zxf install/jdk-8u121-linux-x64.tar.gz -C /opt \
@@ -72,7 +73,7 @@ RUN cp -fR /root/conf-hbase/hbase-site.xml /etc/hbase/conf \
 
 
 # Configure Hive
-COPY resource/conf-hive/* conf-hive/
+COPY resource/conf-hive/ conf-hive/
 RUN ln -s /usr/share/java/mysql-connector-java.jar /usr/lib/hive/lib/mysql-connector-java.jar \
  && cp -fR /root/conf-hive/hive-site.xml /etc/hive/conf
 
