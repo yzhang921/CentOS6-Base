@@ -42,3 +42,10 @@ docker attach c6-master
 # ping c6-slave1 using container name
 ping c6-slave1
 ```
+
+# cdh cluster build base on base image as below
+![image](https://user-images.githubusercontent.com/6037522/29016492-3d67e770-7b85-11e7-9420-69eb56d57259.png)
+
+
+# elk cluster build base on base iamge as below
+![image](https://user-images.githubusercontent.com/6037522/29016573-7fd8b328-7b85-11e7-8249-e8c18e6b0165.png)
