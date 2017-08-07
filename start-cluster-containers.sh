@@ -3,6 +3,8 @@
 curDir=$(cd `dirname $0`; pwd)
 cd $curDir
 
+myhost="myhost:10.32.82.137"
+
 function display_usage() {
 cat << EOF
   usage: $0 -m|-mode=[run|start|stop] -i|-image=[image name] -h|--hlep
@@ -74,11 +76,13 @@ function run-master() {
       -itd \
       --hostname=${MASTER_NAME} \
       --network=hadoop \
+      --add-host="${myhost}" \
       -p 50070:50070 \
       -p 8088:8088 \
       -p 60010:60010 \
       -p 25010:25010 \
       -p 25020:25020 \
+      -p 1022:22 \
       --privileged=true \
       ${image}
   # 50070: HDFS, 8088:YARN, 60010: HBase
@@ -105,6 +109,7 @@ function run-slave() {
       -itd \
       --hostname=${SLAVE_NAME} \
       --network=hadoop \
+      --add-host="${myhost}" \
       --privileged=true \
       ${image}
 }
@@ -150,14 +155,15 @@ process-slaves zk-node
 # ======================================================================================================================================
 # start hive-server2, metastore on this container
 
-MASTER_NAME="hive-server2"
+HIVE_SERVER="hive-server2"
 function run-hive-server2(){
-  sudo docker rm -f ${MASTER_NAME} &> /dev/null
-  echo "start ${MASTER_NAME} container..."
-  sudo docker run --name=${MASTER_NAME} \
+  sudo docker rm -f ${HIVE_SERVER} &> /dev/null
+  echo "start ${HIVE_SERVER} container..."
+  sudo docker run --name=${HIVE_SERVER} \
       -itd \
-      --hostname=${MASTER_NAME} \
+      --hostname=${HIVE_SERVER} \
       --network=hadoop \
+      --add-host="${myhost}" \
       -p 3306:3306 \
       -p 10002:10002 \
       --privileged=true \
@@ -167,11 +173,11 @@ function run-hive-server2(){
 if [ "$mode" = "run" ]; then
   run-hive-server2
 elif [ "$mode" = "start" ]; then
-  checkAndStart ${MASTER_NAME} "run-hive-server2"
+  checkAndStart ${HIVE_SERVER} "run-hive-server2"
 elif [ "$mode" = "stop" ]; then
-  echo "stop ${MASTER_NAME} container..."
-  sudo docker stop ${MASTER_NAME}
+  echo "stop ${HIVE_SERVER} container..."
+  sudo docker stop ${HIVE_SERVER}
 fi
 
 # get into hadoop master container
-# sudo docker attach ${MASTER_NAME}
+sudo docker attach ${MASTER_NAME}

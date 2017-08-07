@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>dfs.permissions.superusergroup</name>
+        <value>hadoop</value>
+    </property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///data/1/dfs/nn,file:///nfsmount/dfs/nn</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///data/1/dfs/dn,file:///data/2/dfs/dn</value>
+    </property>
+    <!-- Enabling block location metadata allows Impala to know which disk data blocks are located on,
+         allowing better utilization of the underlying disks.
+         Impala will not start unless this setting is enabled. -->
+    <property>
+        <name>dfs.datanode.hdfs-blocks-metadata.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.client.read.shortcircuit</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.domain.socket.path</name>
+        <value>/var/run/hdfs-sockets/dn</value>
+    </property>
+    <property>
+        <name>dfs.client.file-block-storage-locations.timeout.millis</name>
+        <value>10000</value>
+    </property>
+</configuration>

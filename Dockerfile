@@ -1,11 +1,11 @@
-#FROM centos6-base
-FROM 43914423/centos6-base
+FROM centos6-base
+#FROM 43914423/centos6-base
 WORKDIR /root
 
 COPY resource/repo/* /resource/repo/
 
 # 163 Mirror
-RUN cp /resource/repo/cloudera-cdh5-local.repo /etc/yum.repos.d/ \
+RUN cp /resource/repo/cloudera-cdh5.7.1-ctrip.repo /etc/yum.repos.d/ \
  && ls -l /etc/yum.repos.d \
  && yum clean all \
  && yum makecache \
@@ -18,6 +18,18 @@ RUN yum install -y hive-metastore hive-server2 mysql-server mysql-connector-java
 
 # Install Impala, comment this command if you don't use impala
 RUN yum install -y impala impala-server impala-state-store impala-catalog impala-shell
+
+RUN yum install -y unzip
+
+# Oracle JDK1.8
+# Impala need Oracle JVM to run
+RUN mkdir install \
+ && wget -q http://10.15.110.8/jdk-oracle/jdk-8u121-linux-x64.tar.gz -P install \
+ && tar -zxf install/jdk-8u121-linux-x64.tar.gz -C /opt \
+ && ln -s /opt/jdk1.8.0_121 /opt/jdk8
+
+ENV JAVA_HOME=/opt/jdk8
+ENV PATH ${JAVA_HOME}/bin:${PATH}
 
 COPY resource/conf-cdh/* conf-cdh/
 COPY resource/parser-params.sh .
@@ -63,8 +75,8 @@ RUN cp -fR /root/conf-hbase/hbase-site.xml /etc/hbase/conf \
 
 
 # Configure Hive
-COPY resource/conf-hive/* conf-hive/
-RUN ln -s /usr/share/java/mysql-connector-java.jar /usr/lib/hive/lib/mysql-connector-java.jar \
+COPY resource/conf-hive/ conf-hive/
+RUN cp -fR /root/conf-hive/lib/mysql-connector-java-5.1.42-bin.jar /usr/lib/hive/lib/mysql-connector-java.jar \
  && cp -fR /root/conf-hive/hive-site.xml /etc/hive/conf
 
 # Configure Impala

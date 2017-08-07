@@ -8,7 +8,7 @@
     </property>
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:mysql://localhost/metastore</value>
+        <value>jdbc:mysql://myhost/metastore</value>
         <description>the URL of the MySQL database</description>
     </property>
     <property>
